@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | default: site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <nav class="top-nav" aria-label="Main navigation">
+    <div class="top-nav-inner">
+      {% for item in site.nav %}
+        {% assign is_active = false %}
+        {% if page.url == item.url %}
+          {% assign is_active = true %}
+        {% elsif page.url == '/' and item.url == '/index.html' %}
+          {% assign is_active = true %}
+        {% endif %}
+        <a href="{{ item.url | relative_url }}" class="top-nav-link{% if is_active %} is-active{% endif %}">
+          {{ item.title }}
+        </a>
+      {% endfor %}
+    </div>
+  </nav>
+
+  <main class="page-content" role="main">
+    {{ content }}
+  </main>
+</body>
+</html>

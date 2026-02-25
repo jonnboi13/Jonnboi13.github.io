@@ -1,3 +1,12 @@
 theme: jekyll-theme-slate
 title: Jonathan Oliphant
 description: Data Engineer & Scientist | Building Scalable Data Pipelines
+nav:
+  - title: Home
+    url: /index.html
+  - title: Projects
+    url: /projects.html
+  - title: About
+    url: /about.html
+  - title: Contact
+    url: /contact.html

@@ -3,11 +3,7 @@ layout: default
 title: Home
 ---
 
-[Home](index.html) | [Projects](projects.html) | [About](about.html) | [Contact](contact.html)
-
----
-
-# 👋 Hello, I'm [Your Name]
+# Hello, I'm Jonathan Oliphant
 **Data Engineer & Data Scientist**
 
 I specialize in architecting scalable data pipelines and extracting actionable insights from complex datasets. 

@@ -3,6 +3,10 @@ layout: default
 title: Projects
 ---
 
+[Home](index.html) | **Projects** | [About](about.html) | [Contact](contact.html)
+
+---
+
 # 🚀 Projects
 
 ### 🏗️ End-to-End Data Pipeline (ETL)
@@ -17,3 +21,6 @@ Machine learning model to identify at-risk subscription customers.
 * **Tech:** Python, Random Forest, SQL.
 * **Outcome:** Achieved 88% recall, helping the team retain 5% more users.
 * [View Notebook](https://github.com/yourusername/repo-name/blob/main/notebook.ipynb)
+
+---
+[← Back to Home](index.html)

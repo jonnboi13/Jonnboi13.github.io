@@ -14,13 +14,6 @@
     "text": "Tools: R (tidyverse, ggplot2), RKaggle\nIn this project, I used R to explore the relationship between board game “weight” (complexity) and user ratings from BoardGameGeek. I performed data wrangling to filter and categorize thousands of games to identify trends in the gaming community.\nRead the Full Analysis"
   },
   {
-    "objectID": "projects.html#data-engineering-elt-pipeline-orchestration",
-    "href": "projects.html#data-engineering-elt-pipeline-orchestration",
-    "title": "Technical Projects",
-    "section": "Data Engineering: ELT Pipeline Orchestration",
-    "text": "Data Engineering: ELT Pipeline Orchestration\nTools: Airflow, dbt, Snowflake\nI have experience converting standard RDBMS schemas into optimized Star and Snowflake models. This project involved utilizing APIs and MongoDB to ingest diverse data sources and orchestrating the entire flow using Airflow DAGs."
-  },
-  {
     "objectID": "contact.html",
     "href": "contact.html",
     "title": "Contact",
@@ -40,6 +33,20 @@
     "title": "About Me",
     "section": "Professional Narrative",
     "text": "Professional Narrative\nI am a results-driven Data Scientist with a 4.0 GPA and a background in high-stakes Data Engineering. My experience ranges from architecting functional database schemas to leading teams in university-wide accessibility audits."
+  },
+  {
+    "objectID": "about.html#experience-leadership",
+    "href": "about.html#experience-leadership",
+    "title": "About Me",
+    "section": "Experience & Leadership",
+    "text": "Experience & Leadership\n\nAccessibility Specialist Team Lead\nBYU-Idaho | Sept 2023 – July 2025\n\nInnovation: Integrated AI-assisted development using JavaScript to build custom scripts, significantly increasing team efficiency.\nLeadership: Mentored and trained new hires on complex accessibility workflows and office productivity.\nCompliance: Conducted thorough audits to ensure university course content met accessibility standards for all users."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\n\nBachelor of Science in Data Science\nBYU-Idaho\n\nGPA: 4.0\nTechnical Focus: Orchestrating ELT pipelines, SQL database design, and advanced statistical modeling in R."
   },
   {
     "objectID": "board_games.html",
@@ -77,45 +84,10 @@
     "text": "I am a Data Science student at BYU-Idaho (GPA: 4.0) specializing in the bridge between Data Engineering and Applied Analysis. From orchestrating ELT pipelines in Airflow and Snowflake to performing complex regression analysis in R, I build data structures that are not only efficient but also tell a compelling story.\nCore Expertise:\n\nData Engineering: Airflow (DAGs), dbt, Snowflake, and API Ingestion.\nStatistical Analysis: Regression, ANOVA/ANCOVA, and Model Selection.\nLanguages: SQL, R, Python, and JavaScript."
   },
   {
-    "objectID": "about.html#experience-leadership",
-    "href": "about.html#experience-leadership",
-    "title": "About Me",
-    "section": "Experience & Leadership",
-    "text": "Experience & Leadership\n\nAccessibility Specialist Team Lead\nBYU-Idaho | Sept 2023 – July 2025\n\nInnovation: Integrated AI-assisted development using JavaScript to build custom scripts, significantly increasing team efficiency.\nLeadership: Mentored and trained new hires on complex accessibility workflows and office productivity.\nCompliance: Conducted thorough audits to ensure university course content met accessibility standards for all users."
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About Me",
-    "section": "Education",
-    "text": "Education\n\nBachelor of Science in Data Science\nBYU-Idaho\n\nGPA: 4.0\nTechnical Focus: Orchestrating ELT pipelines, SQL database design, and advanced statistical modeling in R."
-  },
-  {
     "objectID": "index.html#transforming-raw-data-into-strategic-insights",
     "href": "index.html#transforming-raw-data-into-strategic-insights",
     "title": "Jonathan Oliphant",
     "section": "",
     "text": "I am a Data Science student at BYU-Idaho (GPA: 4.0) specializing in the bridge between Data Engineering and Applied Analysis. From orchestrating ELT pipelines in Airflow and Snowflake to performing complex regression analysis in R, I build data structures that are not only efficient but also tell a compelling story.\nCore Expertise:\n\nData Engineering: Airflow (DAGs), dbt, Snowflake, and API Ingestion.\nStatistical Analysis: Regression, ANOVA/ANCOVA, and Model Selection.\nLanguages: SQL, R, Python, and JavaScript."
-  },
-  {
-    "objectID": "index.html#professional-narrative",
-    "href": "index.html#professional-narrative",
-    "title": "About Me",
-    "section": "",
-    "text": "I am a results-driven Data Scientist with a 4.0 GPA and a background in high-stakes Data Engineering. My experience ranges from architecting functional database schemas to leading teams in university-wide accessibility audits."
-  },
-  {
-    "objectID": "index.html#experience-leadership",
-    "href": "index.html#experience-leadership",
-    "title": "About Me",
-    "section": "Experience & Leadership",
-    "text": "Experience & Leadership\n\nAccessibility Specialist Team Lead\nBYU-Idaho | Sept 2023 – July 2025\n\nInnovation: Integrated AI-assisted development using JavaScript to build custom scripts, significantly increasing team efficiency.\nLeadership: Mentored and trained new hires on complex accessibility workflows and office productivity.\nCompliance: Conducted thorough audits to ensure university course content met accessibility standards for all users."
-  },
-  {
-    "objectID": "index.html#education",
-    "href": "index.html#education",
-    "title": "About Me",
-    "section": "Education",
-    "text": "Education\n\nBachelor of Science in Data Science\nBYU-Idaho\n\nGPA: 4.0\nTechnical Focus: Orchestrating ELT pipelines, SQL database design, and advanced statistical modeling in R."
   }
 ]

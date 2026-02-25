@@ -1,26 +1,12 @@
 ---
-layout: default
-title: Projects
+title: "Technical Projects"
 ---
 
-[Home](index.html) | **Projects** | [About](about.html) | [Contact](contact.html)
+## Featured Project: Board Game Complexity Analysis
+**Tools:** R (tidyverse, ggplot2), RKaggle
+
+In this project, I used R to explore the relationship between board game "weight" (complexity) and user ratings from BoardGameGeek. I performed data wrangling to filter and categorize thousands of games to identify trends in the gaming community.
+
+[Read the Full Analysis](board_games.qmd)
 
 ---
-
-# 🚀 Projects
-
-### 🏗️ End-to-End Data Pipeline (ETL)
-Built an automated pipeline to scrape, clean, and store financial data.
-* **Problem:** Manual data entry was taking 10 hours/week.
-* **Solution:** Used Airflow for orchestration and AWS S3 for storage.
-* **Result:** Reduced data processing time by 90%.
-* [View Code](https://github.com/yourusername/repo-name)
-
-### 📈 Customer Churn Prediction
-Machine learning model to identify at-risk subscription customers.
-* **Tech:** Python, Random Forest, SQL.
-* **Outcome:** Achieved 88% recall, helping the team retain 5% more users.
-* [View Notebook](https://github.com/yourusername/repo-name/blob/main/notebook.ipynb)
-
----
-[← Back to Home](index.html)

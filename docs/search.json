@@ -1,0 +1,121 @@
+[
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Technical Projects",
+    "section": "",
+    "text": "Tools: R (tidyverse, ggplot2), RKaggle\nIn this project, I used R to explore the relationship between board game “weight” (complexity) and user ratings from BoardGameGeek. I performed data wrangling to filter and categorize thousands of games to identify trends in the gaming community.\nRead the Full Analysis"
+  },
+  {
+    "objectID": "projects.html#featured-project-board-game-complexity-analysis",
+    "href": "projects.html#featured-project-board-game-complexity-analysis",
+    "title": "Technical Projects",
+    "section": "",
+    "text": "Tools: R (tidyverse, ggplot2), RKaggle\nIn this project, I used R to explore the relationship between board game “weight” (complexity) and user ratings from BoardGameGeek. I performed data wrangling to filter and categorize thousands of games to identify trends in the gaming community.\nRead the Full Analysis"
+  },
+  {
+    "objectID": "projects.html#data-engineering-elt-pipeline-orchestration",
+    "href": "projects.html#data-engineering-elt-pipeline-orchestration",
+    "title": "Technical Projects",
+    "section": "Data Engineering: ELT Pipeline Orchestration",
+    "text": "Data Engineering: ELT Pipeline Orchestration\nTools: Airflow, dbt, Snowflake\nI have experience converting standard RDBMS schemas into optimized Star and Snowflake models. This project involved utilizing APIs and MongoDB to ingest diverse data sources and orchestrating the entire flow using Airflow DAGs."
+  },
+  {
+    "objectID": "contact.html",
+    "href": "contact.html",
+    "title": "Contact",
+    "section": "",
+    "text": "📬 Get In Touch\nI am currently open to new opportunities and collaborations. Whether you have a question about my data engineering work or just want to discuss the latest board game trends, feel free to reach out!\n\nEmail: Jonathanoliphant13@gmail.com\nLinkedIn: linkedin.com/in/jonathan-r-oliphant\nGitHub: github.com/Jonnboi13\n\n\n← Back to Home"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About Me",
+    "section": "",
+    "text": "📥 Download My Full Resume (PDF)"
+  },
+  {
+    "objectID": "about.html#professional-narrative",
+    "href": "about.html#professional-narrative",
+    "title": "About Me",
+    "section": "Professional Narrative",
+    "text": "Professional Narrative\nI am a results-driven Data Scientist with a 4.0 GPA and a background in high-stakes Data Engineering. My experience ranges from architecting functional database schemas to leading teams in university-wide accessibility audits."
+  },
+  {
+    "objectID": "board_games.html",
+    "href": "board_games.html",
+    "title": "Board Games",
+    "section": "",
+    "text": "Code\npacman::p_load(tidyverse, dplyr, pander, ggthemes, ggrepel, scales, USAboundaries, USAboundariesData, sf, forcats, leaflet, RKaggle)\nCode\ngames_dataset &lt;- RKaggle::get_dataset(\"threnjen/board-games-database-from-boardgamegeek\")\n\ndesigners_reduced &lt;- games_dataset[[2]]\ngames &lt;- games_dataset[[3]]\nmechanics &lt;- games_dataset[[4]]\npublishers_reduced &lt;- games_dataset[[5]]\nratings_distribution &lt;- games_dataset[[6]]\nsubcategories &lt;- games_dataset[[7]]\nthemes &lt;- games_dataset[[8]]\nuser_ratings &lt;- games_dataset[[9]]\n\n\ngames_filtered &lt;- games %&gt;% \n  filter(YearPublished &gt; 1975)"
+  },
+  {
+    "objectID": "board_games.html#introduction",
+    "href": "board_games.html#introduction",
+    "title": "Board Games",
+    "section": "Introduction",
+    "text": "Introduction\nI love Board Games, especially really long and complex ones that last at least an hour and a half. I want to look at the trends within Board game reviews and sales numbers to explore how other people tend to feel about them.\nI will be using data pulled from BoardGameGeek.com. Within the data pulled, they have a WeightRating for each game, which is the complexity/difficulty of the game. Because I like more complex games, this will be my primary focus."
+  },
+  {
+    "objectID": "board_games.html#looking-through-the-data",
+    "href": "board_games.html#looking-through-the-data",
+    "title": "Board Games",
+    "section": "Looking Through the Data",
+    "text": "Looking Through the Data\n\nGame Ratings over time (With Complexity)\nHere is a graph showing how games’ ratings trend over time, and how their weight impacts that.\n\n\nCode\nWeight_Rating &lt;- games_filtered %&gt;% \n  mutate(\n    WeightGroup = case_when(\n      GameWeight &lt; 1 ~ 0,\n      GameWeight &lt; 2 ~ 1,\n      GameWeight &lt; 3 ~ 2,\n      GameWeight &lt; 4 ~ 3,\n      GameWeight &lt; 5 ~ 4,\n      TRUE~0\n    )\n  )\n\nlabels &lt;- data.frame(\n  x=c(2004, 2022, 2022, 2022, 2007),\n  y=c(5.1, 7, 7.5, 8.1, 8.3),\n  WeightGroup=c(0,1,2,3,4),\n  label=c(\"Complexity: 0\", \"Complexity: 1\", \"Complexity: 2\", \"Complexity: 3\", \"Complexity: 4\")\n)\n\n\nggplot(Weight_Rating, aes(x=YearPublished, y=AvgRating, color=factor(WeightGroup))) +\n  geom_point(alpha=0.1, color='gray') +\n  geom_smooth(se=F,\n              linewidth=2) +\n  geom_label(data=labels, \n             aes(x=x, y=y, label=label),\n             hjust=0) +\n  labs(\n    x='Year Published',\n    y = 'Average Rating',\n    title = 'Game ratings are going up over time',\n    subtitle= 'Complex games tend to be higher rated'\n  ) +\n  scale_color_manual(values = c(\"#8CC088\", \"#87B8D9\", \"#FFB570\", \"#A087B4\", \"#E37A7A\")) +\n  coord_cartesian(xlim=c(1975,2030))+\n  theme_bw() +\n  theme(\n    legend.position='none'\n  )\n\n\n\n\n\n\n\n\n\nThere is a clear trend that new games tend to perform better, and more complex games tend to perform better.\nLet’s take a look at a smaller pool of games to see what’s going on.\n\n\nPublishers\n\n\nCode\npublishers_long &lt;- publishers_reduced %&gt;% \n  pivot_longer(\n    cols = !BGGId,\n    names_to = \"Publisher\", \n    values_to = \"Published\"\n  ) %&gt;%\n  filter(Published == 1) %&gt;%\n  select(!Published)\n\n\n\n\nCode\ngames_publishers &lt;- Weight_Rating %&gt;% \n  left_join(publishers_long, by=\"BGGId\")\n\n\nHere are the top 10 game publishers and the amount of games they have published. Note that many games have multiple publishers, so there is some overlap between the games published by each of these companies.\n\n\nCode\ngames_publishers_filtered &lt;- games_publishers %&gt;% \n  filter(!(Publisher %in% c(\"Low-Exp Publisher\", \"(Self-Published)\", \"(Web published)\"))) %&gt;% \n  group_by(Publisher) %&gt;%\n  summarise(\n    GamesPublished=n()\n  ) %&gt;% \n  slice_max(n=10, order_by = GamesPublished) %&gt;% \n  mutate(\n    Publisher = fct_reorder(Publisher, GamesPublished)\n  )\n\n\nggplot(games_publishers_filtered, aes(x=GamesPublished, y=Publisher, fill=Publisher)) +\n  geom_col() +\n  \n  labs(x=\"Games Published\",\n       y=\"Publisher\",\n       title=\"Asmodee has the most published games\") +\n  \n  theme_bw() +\n  theme(\n    legend.position=\"none\"\n  )\n\n\n\n\n\n\n\n\n\nLet’s take a closer look at the games that Asmodee has published, since they have published the most amount of games.\n\n\nCode\nAsmodee &lt;- games_publishers %&gt;% \n  filter(Publisher==\"Asmodee\")\n\n\nggplot(Asmodee, aes(x=WeightGroup, y=AvgRating, color=factor(WeightGroup), group=WeightGroup)) +\n  geom_boxplot(outlier.shape=NA) +\n  geom_jitter(width=0.1, alpha=0.5) +\n  \n  labs(x=\"Game Weight\",\n       y=\"Game Rating\",\n       title=\"High Complexity Games tend to be more highly rated\",\n       subtitle=\"Games Published by Asmodee\") +\n  scale_color_manual(values = c(\"#8CC088\", \"#87B8D9\", \"#FFB570\", \"#A087B4\", \"#E37A7A\")) +\n  \n  theme_bw() +\n  theme(\n    legend.position=\"none\",\n    panel.grid.minor.x = element_blank()\n  )\n\n\n\n\n\n\n\n\n\nWe can see that the higher complexity games tend to have higher ratings than lower complexity games. But there are way fewer games especially with a weight of 4, why is this? Maybe the games get good reviews but they don’t sell as well as the simpler games.\nHere we will look at the amount of copies each game from Asmodee sold within their weight groups.\n\n\nCode\nggplot(Asmodee, aes(x=WeightGroup, y=NumOwned, color=factor(WeightGroup), group=WeightGroup)) +\n  geom_boxplot(outlier.shape=NA) +\n  geom_jitter(width=0.1, alpha=0.5) +\n  \n  labs(x=\"Game Weight\",\n       y=\"Copies Owned by Players\",\n       title=\"High Complexity Games tend to sell more copies\",\n       subtitle=\"Games Published by Asmodee\") +\n  \n  scale_y_continuous(labels=label_comma()) +\n  scale_color_manual(values = c(\"#8CC088\", \"#87B8D9\", \"#FFB570\", \"#A087B4\", \"#E37A7A\")) +\n  coord_cartesian(ylim=c(0,75000)) +\n  \n  \n  theme_bw() +\n  theme(\n    legend.position=\"none\",\n    panel.grid.minor.x = element_blank()\n  )\n\n\n\n\n\n\n\n\n\nWe again see that high complexity games perform tend to perform better. Why is it that Asmodee doesn’t publish more high complexity games then?\nOne thing to keep in mind is that High complexity games probably take a lot of time and effort to make. Even if a game is going to sell well, with it be worth the time and money it takes to make the game in the first place?"
+  },
+  {
+    "objectID": "board_games.html#conclusion",
+    "href": "board_games.html#conclusion",
+    "title": "Board Games",
+    "section": "Conclusion",
+    "text": "Conclusion\nSomething that’s really important thing to keep in mind when looking at all of this data is that it is pulled from BoardGameGeek.com. They collect their data on board games solely based on their community of users submitting reviews and reports. Not everyone who plays a board game is going to make an account and give it a review or state that they own the game. In fact, most people won’t do that. Except for people who really like board games. Someone who really likes board games is probably going to prefer the longer and more involved games, because it would come naturally to them. That’s probably why the more complex games perform better according to BoardGameGeek’s stats. We only have stats from the type of people who do like complex games, even though there’s a lot of casual fans who don’t like those kinds of games."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jonathan Oliphant",
+    "section": "",
+    "text": "I am a Data Science student at BYU-Idaho (GPA: 4.0) specializing in the bridge between Data Engineering and Applied Analysis. From orchestrating ELT pipelines in Airflow and Snowflake to performing complex regression analysis in R, I build data structures that are not only efficient but also tell a compelling story.\nCore Expertise:\n\nData Engineering: Airflow (DAGs), dbt, Snowflake, and API Ingestion.\nStatistical Analysis: Regression, ANOVA/ANCOVA, and Model Selection.\nLanguages: SQL, R, Python, and JavaScript."
+  },
+  {
+    "objectID": "about.html#experience-leadership",
+    "href": "about.html#experience-leadership",
+    "title": "About Me",
+    "section": "Experience & Leadership",
+    "text": "Experience & Leadership\n\nAccessibility Specialist Team Lead\nBYU-Idaho | Sept 2023 – July 2025\n\nInnovation: Integrated AI-assisted development using JavaScript to build custom scripts, significantly increasing team efficiency.\nLeadership: Mentored and trained new hires on complex accessibility workflows and office productivity.\nCompliance: Conducted thorough audits to ensure university course content met accessibility standards for all users."
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\n\nBachelor of Science in Data Science\nBYU-Idaho\n\nGPA: 4.0\nTechnical Focus: Orchestrating ELT pipelines, SQL database design, and advanced statistical modeling in R."
+  },
+  {
+    "objectID": "index.html#transforming-raw-data-into-strategic-insights",
+    "href": "index.html#transforming-raw-data-into-strategic-insights",
+    "title": "Jonathan Oliphant",
+    "section": "",
+    "text": "I am a Data Science student at BYU-Idaho (GPA: 4.0) specializing in the bridge between Data Engineering and Applied Analysis. From orchestrating ELT pipelines in Airflow and Snowflake to performing complex regression analysis in R, I build data structures that are not only efficient but also tell a compelling story.\nCore Expertise:\n\nData Engineering: Airflow (DAGs), dbt, Snowflake, and API Ingestion.\nStatistical Analysis: Regression, ANOVA/ANCOVA, and Model Selection.\nLanguages: SQL, R, Python, and JavaScript."
+  },
+  {
+    "objectID": "index.html#professional-narrative",
+    "href": "index.html#professional-narrative",
+    "title": "About Me",
+    "section": "",
+    "text": "I am a results-driven Data Scientist with a 4.0 GPA and a background in high-stakes Data Engineering. My experience ranges from architecting functional database schemas to leading teams in university-wide accessibility audits."
+  },
+  {
+    "objectID": "index.html#experience-leadership",
+    "href": "index.html#experience-leadership",
+    "title": "About Me",
+    "section": "Experience & Leadership",
+    "text": "Experience & Leadership\n\nAccessibility Specialist Team Lead\nBYU-Idaho | Sept 2023 – July 2025\n\nInnovation: Integrated AI-assisted development using JavaScript to build custom scripts, significantly increasing team efficiency.\nLeadership: Mentored and trained new hires on complex accessibility workflows and office productivity.\nCompliance: Conducted thorough audits to ensure university course content met accessibility standards for all users."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\n\nBachelor of Science in Data Science\nBYU-Idaho\n\nGPA: 4.0\nTechnical Focus: Orchestrating ELT pipelines, SQL database design, and advanced statistical modeling in R."
+  }
+]

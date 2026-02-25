@@ -1,0 +1,200 @@
+---
+title: "Board Games"
+author: "Jonathan Oliphant"
+execute: 
+  warning: FALSE
+format:
+  html:
+    code-fold: TRUE
+    code-line-numbers: TRUE
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, warning = FALSE, message = FALSE}
+pacman::p_load(tidyverse, dplyr, pander, ggthemes, ggrepel, scales, USAboundaries, USAboundariesData, sf, forcats, leaflet, RKaggle)
+```
+
+```{r}
+games_dataset <- RKaggle::get_dataset("threnjen/board-games-database-from-boardgamegeek")
+
+designers_reduced <- games_dataset[[2]]
+games <- games_dataset[[3]]
+mechanics <- games_dataset[[4]]
+publishers_reduced <- games_dataset[[5]]
+ratings_distribution <- games_dataset[[6]]
+subcategories <- games_dataset[[7]]
+themes <- games_dataset[[8]]
+user_ratings <- games_dataset[[9]]
+
+
+games_filtered <- games %>% 
+  filter(YearPublished > 1975)
+```
+## Introduction
+
+I love Board Games, especially really long and complex ones that last at least an hour and a half. I want to look at the trends within Board game reviews and sales numbers to explore how other people tend to feel about them. 
+
+I will be using data pulled from [BoardGameGeek.com](www.boardgamegeek.com). Within the data pulled, they have a `WeightRating` for each game, which is the complexity/difficulty of the game. Because I like more complex games, this will be my primary focus.
+
+
+## Looking Through the Data
+
+### Game Ratings over time (With Complexity)
+
+Here is a graph showing how games' ratings trend over time, and how their weight impacts that.
+```{r, fig.align='center'}
+Weight_Rating <- games_filtered %>% 
+  mutate(
+    WeightGroup = case_when(
+      GameWeight < 1 ~ 0,
+      GameWeight < 2 ~ 1,
+      GameWeight < 3 ~ 2,
+      GameWeight < 4 ~ 3,
+      GameWeight < 5 ~ 4,
+      TRUE~0
+    )
+  )
+
+labels <- data.frame(
+  x=c(2004, 2022, 2022, 2022, 2007),
+  y=c(5.1, 7, 7.5, 8.1, 8.3),
+  WeightGroup=c(0,1,2,3,4),
+  label=c("Complexity: 0", "Complexity: 1", "Complexity: 2", "Complexity: 3", "Complexity: 4")
+)
+
+
+ggplot(Weight_Rating, aes(x=YearPublished, y=AvgRating, color=factor(WeightGroup))) +
+  geom_point(alpha=0.1, color='gray') +
+  geom_smooth(se=F,
+              linewidth=2) +
+  geom_label(data=labels, 
+             aes(x=x, y=y, label=label),
+             hjust=0) +
+  labs(
+    x='Year Published',
+    y = 'Average Rating',
+    title = 'Game ratings are going up over time',
+    subtitle= 'Complex games tend to be higher rated'
+  ) +
+  scale_color_manual(values = c("#8CC088", "#87B8D9", "#FFB570", "#A087B4", "#E37A7A")) +
+  coord_cartesian(xlim=c(1975,2030))+
+  theme_bw() +
+  theme(
+    legend.position='none'
+  )
+```
+
+There is a clear trend that new games tend to perform better, and more complex games tend to perform better.
+
+Let's take a look at a smaller pool of games to see what's going on.
+
+### Publishers
+```{r}
+publishers_long <- publishers_reduced %>% 
+  pivot_longer(
+    cols = !BGGId,
+    names_to = "Publisher", 
+    values_to = "Published"
+  ) %>%
+  filter(Published == 1) %>%
+  select(!Published)
+```
+
+
+```{r}
+games_publishers <- Weight_Rating %>% 
+  left_join(publishers_long, by="BGGId")
+```
+
+
+Here are the top 10 game publishers and the amount of games they have published. Note that many games have multiple publishers, so there is some overlap between the games published by each of these companies.
+```{r, fig.align='center'}
+games_publishers_filtered <- games_publishers %>% 
+  filter(!(Publisher %in% c("Low-Exp Publisher", "(Self-Published)", "(Web published)"))) %>% 
+  group_by(Publisher) %>%
+  summarise(
+    GamesPublished=n()
+  ) %>% 
+  slice_max(n=10, order_by = GamesPublished) %>% 
+  mutate(
+    Publisher = fct_reorder(Publisher, GamesPublished)
+  )
+
+
+ggplot(games_publishers_filtered, aes(x=GamesPublished, y=Publisher, fill=Publisher)) +
+  geom_col() +
+  
+  labs(x="Games Published",
+       y="Publisher",
+       title="Asmodee has the most published games") +
+  
+  theme_bw() +
+  theme(
+    legend.position="none"
+  )
+```
+
+
+Let's take a closer look at the games that Asmodee has published, since they have published the most amount of games.
+
+```{r, fig.align='center'}
+Asmodee <- games_publishers %>% 
+  filter(Publisher=="Asmodee")
+
+
+ggplot(Asmodee, aes(x=WeightGroup, y=AvgRating, color=factor(WeightGroup), group=WeightGroup)) +
+  geom_boxplot(outlier.shape=NA) +
+  geom_jitter(width=0.1, alpha=0.5) +
+  
+  labs(x="Game Weight",
+       y="Game Rating",
+       title="High Complexity Games tend to be more highly rated",
+       subtitle="Games Published by Asmodee") +
+  scale_color_manual(values = c("#8CC088", "#87B8D9", "#FFB570", "#A087B4", "#E37A7A")) +
+  
+  theme_bw() +
+  theme(
+    legend.position="none",
+    panel.grid.minor.x = element_blank()
+  )
+
+```
+We can see that the higher complexity games tend to have higher ratings than lower complexity games. But there are way fewer games especially with a weight of 4, why is this? Maybe the games get good reviews but they don't sell as well as the simpler games.
+
+
+Here we will look at the amount of copies each game from Asmodee sold within their weight groups.
+```{r, fig.align='center'}
+ggplot(Asmodee, aes(x=WeightGroup, y=NumOwned, color=factor(WeightGroup), group=WeightGroup)) +
+  geom_boxplot(outlier.shape=NA) +
+  geom_jitter(width=0.1, alpha=0.5) +
+  
+  labs(x="Game Weight",
+       y="Copies Owned by Players",
+       title="High Complexity Games tend to sell more copies",
+       subtitle="Games Published by Asmodee") +
+  
+  scale_y_continuous(labels=label_comma()) +
+  scale_color_manual(values = c("#8CC088", "#87B8D9", "#FFB570", "#A087B4", "#E37A7A")) +
+  coord_cartesian(ylim=c(0,75000)) +
+  
+  
+  theme_bw() +
+  theme(
+    legend.position="none",
+    panel.grid.minor.x = element_blank()
+  )
+```
+
+We again see that high complexity games perform tend to perform better. Why is it that Asmodee doesn't publish more high complexity games then?
+
+One thing to keep in mind is that High complexity games probably take a lot of time and effort to make. Even if a game is going to sell well, with it be worth the time and money it takes to make the game in the first place?
+
+## Conclusion
+Something that's really important thing to keep in mind when looking at all of this data is that it is pulled from BoardGameGeek.com. They collect their data on board games solely based on their community of users submitting reviews and reports. Not everyone who plays a board game is going to make an account and give it a review or state that they own the game. In fact, most people won't do that. Except for people who really like board games. Someone who really likes board games is probably going to prefer the longer and more involved games, because it would come naturally to them. That's probably why the more complex games perform better according to BoardGameGeek's stats. We only have stats from the type of people who do like complex games, even though there's a lot of casual fans who don't like those kinds of games.
+
+
+
+
+
+

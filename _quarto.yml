@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Jonathan Oliphant"
+  navbar:
+    background: primary
+    search: true
+    left:
+      - href: index.md
+        text: Home
+      - href: about.md
+        text: About
+      - href: projects.md
+        text: Projects
+      - href: contact.md
+        text: Contact
+
+format:
+  html:
+    theme: flatly
+    css: styles.css
+    toc: true
+
+editor: source
+
+execute:
+  freeze: auto

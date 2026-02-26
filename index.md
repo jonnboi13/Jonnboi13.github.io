@@ -21,4 +21,4 @@ I am a Data Science student at BYU-Idaho (GPA: 4.0) specializing in the bridge b
 
 * **Data Engineering:** Airflow (DAGs), dbt, Snowflake, and API Ingestion.
 * **Statistical Analysis:** Regression, ANOVA/ANCOVA, and Model Selection.
-* **Languages:** SQL, R, Python, and JavaScript.
+* **Languages:** SQL, R, Python, and JavaScript. 

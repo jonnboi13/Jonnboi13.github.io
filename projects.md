@@ -11,7 +11,7 @@ A high-performance analytics platform and web application designed to explore co
 - **Optimized Compute:** Uses **Polars** `LazyFrame` evaluation (`scan_parquet`) to execute deferred query plans with predicate and projection pushdown, minimizing memory overhead.
 - **Serverless Hydration:** Decouples storage from runtime compute by dynamically fetching versioned `.zip` release assets and ledgers on-demand from GitHub.
 
-[View Live Dashboard](https://your-streamlit-app-url.streamlit.app) | [GitHub Repository](https://github.com/jonnboi13/Showdown-project)
+[View Live Dashboard](https://showdown-projectgit-mbetkr9fi9vhup2xqbggbq.streamlit.app) | [GitHub Repository](https://github.com/jonnboi13/Showdown-project)
 
 ---
 

@@ -1,0 +1,27 @@
+name: Render and Publish Quarto Site
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Render Quarto Project
+        run: quarto render
+
+      - name: Commit and Push Generated HTML
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Automatic Quarto render of site"
+          file_pattern: "docs/*"
